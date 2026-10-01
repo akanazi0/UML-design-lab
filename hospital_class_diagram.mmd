@@ -39,13 +39,13 @@ classDiagram
         +str instructions
     }
 
-    Hospital *-- "*" Department : contains
-    Hospital o-- "*" Patient : registers
-    Hospital *-- "*" Appointment : manages
+    Hospital "1" *-- "*" Department : contains
+    Hospital "1" -- "*" Patient : registers
+    Hospital "1" -- "*" Appointment : manages
 
-    Department o-- "*" Doctor : employs
+    Department "1" -- "*" Doctor : employs
 
-    Appointment --> "1" Doctor : assigned_to
-    Appointment --> "1" Patient : booked_by
-    Appointment *-- "0..1" Prescription : generates
-    Prescription --> "1" Patient : prescribed_for
+    Appointment "*" --> "1" Doctor : assigned_to
+    Appointment "*" --> "1" Patient : booked_by
+    Appointment "1" *-- "0..*" Prescription : generates
+    Prescription "*" --> "1" Patient : prescribed_for
