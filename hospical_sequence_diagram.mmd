@@ -1,0 +1,65 @@
+sequenceDiagram
+    autonumber
+    actor P as Patient
+    actor D as Doctor
+    participant H as Hospital
+    participant A as Appointment
+    participant Rx as Prescription
+
+    %% Phase 1: Registration Check & Booking
+    rect
+        note over P, A: Phase 1: Registration & Scheduling
+        
+        alt Patient is NOT registered
+            P->>H: register_patient(patient)
+            activate H
+            H-->>P: void
+            deactivate H
+        end
+
+        P->>H: schedule_appointment(patient, doctor, date)
+        activate H
+        H->>A: create(patient, doctor, date)
+        activate A
+        A-->>H: appointment instance
+        deactivate A
+        H-->>P: return Appointment instance
+        deactivate H
+    end
+
+    %% Phase 2: Consultation & Medical History
+    rect 
+        note over P, A: Phase 2: Consultation & Medical History
+        D->>D: is_available_at(date)
+        D->>D: mark_as_busy()
+        
+        D->>A: view_patient_history(patient)
+        activate A
+        A->>P: show_medical_history()
+        activate P
+        P-->>A: return medical_history (str)
+        deactivate P
+        A-->>D: return medical_history (str)
+        deactivate A
+    end
+
+    %% Phase 3: Prescription & Completion
+    rect 
+        note over P, Rx: Phase 3: Prescription & Completion
+        D->>A: issue_prescription(med_name, dosage, instructions)
+        activate A
+        A->>Rx: create(med_name, dosage, instructions)
+        activate Rx
+        Rx-->>A: prescription instance
+        deactivate Rx
+        A-->>P: return Prescription instance
+        deactivate A
+        
+        D->>A: complete_appointment()
+        activate A
+        A->>A: update status
+        A-->>D: void
+        deactivate A
+        
+        D->>D: mark_as_available()
+    end
