@@ -1,19 +1,4 @@
 classDiagram
-
-    %% Classes
-    class Person {
-        <<abstract>>
-        +name : str
-        +age : int
-        +gender : str
-        +address : str
-        +phone_number : str
-        +email : str
-        +date_of_birth : str
-        +blood_type : str
-        +national_id : str
-    }
-    
     class Hospital {
         +name : str
         +add_department(dept: Department) void
@@ -31,13 +16,8 @@ classDiagram
         +is_available : bool
         +mark_as_busy() void
         +mark_as_available() void
+        +is_available_at(date: str) bool
         +view_patient_history(patient: Patient) str
-    }
-
-    class Patient {
-        +medical_record_number : str
-        +medical_history : str
-        +show_medical_history() str
     }
 
     class Appointment {
@@ -53,18 +33,36 @@ classDiagram
         +dosage : str
         +instructions : str
     }
+
+    class Patient {
+        +medical_record_number : str
+        +medical_history : str
+        +show_medical_history() str
+    }
     
+    class Person {
+        <<abstract>>
+        +name : str
+        +age : int
+        +gender : str
+        +address : str
+        +phone_number : str
+        +email : str
+        +date_of_birth : str
+        +blood_type : str
+        +national_id : str
+    }
+
     %% Relationships
-    Person <|-- Patient : inherits
-    Person <|-- Doctor : inherits
-    
     Hospital "1" *-- "*" Department : contains
-    Hospital "1" *-- "*" Appointment : manages
-    Hospital "1" o-- "*" Patient : registers
-
     Department "1" o-- "*" Doctor : employs
-
-    Prescription "*" --> "1" Patient : prescribed_for
+    
     Appointment "*" --> "1" Doctor : assigned_to
     Appointment "*" --> "1" Patient : booked_by
     Appointment "1" *-- "0..*" Prescription : generates
+
+    Hospital "1" o-- "*" Patient : registers
+    Hospital "1" *-- "*" Appointment : manages
+
+    Doctor --|> Person : inherits
+    Patient --|> Person : inherits
