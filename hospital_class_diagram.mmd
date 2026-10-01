@@ -1,49 +1,49 @@
 classDiagram
 
     class Hospital {
-        +str name
-        +add_department()
-        +register_patient()
-        +schedule_appointment()
+        +name : str
+        +add_department(dept: Department) void
+        +register_patient(patient: Patient) void
+        +schedule_appointment(patient: Patient, doctor: Doctor, date: str) Appointment
     }
 
     class Department {
-        +str name
-        +add_doctor()
+        +name : str
+        +add_doctor(doc: Doctor) void
     }
 
     class Doctor {
-        +str name
-        +str specialty
-        +bool is_available
-        +mark_as_busy()
-        +mark_as_available()
+        +name : str
+        +specialty : str
+        +is_available : bool
+        +mark_as_busy() void
+        +mark_as_available() void
     }
 
     class Patient {
-        +str name
-        +str national_id
+        +name : str
+        +national_id : str
     }
 
     class Appointment {
-        +str appointment_date
-        +str status
-        +issue_prescription()
-        +complete_appointment()
-        +cancel_appointment()
+        +appointment_date : str
+        +status : str
+        +issue_prescription(med_name : str, dosage : str, instructions : str) Prescription
+        +complete_appointment() void
+        +cancel_appointment() void
     }
 
     class Prescription {
-        +str medication_name
-        +str dosage
-        +str instructions
+        +medication_name : str
+        +dosage : str
+        +instructions : str
     }
 
     Hospital "1" *-- "*" Department : contains
-    Hospital "1" -- "*" Patient : registers
-    Hospital "1" -- "*" Appointment : manages
+    Hospital "1" o-- "*" Patient : registers
+    Hospital "1" *-- "*" Appointment : manages
 
-    Department "1" -- "*" Doctor : employs
+    Department "1" o-- "*" Doctor : employs
 
     Appointment "*" --> "1" Doctor : assigned_to
     Appointment "*" --> "1" Patient : booked_by
