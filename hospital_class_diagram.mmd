@@ -9,6 +9,8 @@ classDiagram
     class Department {
         +name : str
         +add_doctor(doc: Doctor) void
+        +remove_doctor(doc: Doctor) void
+        +getDoctorList() list
     }
 
     class Doctor {
