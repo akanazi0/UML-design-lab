@@ -31,6 +31,7 @@ classDiagram
         +is_available : bool
         +mark_as_busy() void
         +mark_as_available() void
+        +view_patient_history(patient: Patient) str
     }
 
     class Patient {
@@ -54,8 +55,8 @@ classDiagram
     }
     
     %% Relationships
-    Person <|.. Patient : implements
-    Person <|.. Doctor : implements
+    Person <|.. Patient : inherits
+    Person <|.. Doctor : inherits
     
     Hospital "1" *-- "*" Department : contains
     Hospital "1" *-- "*" Appointment : manages
