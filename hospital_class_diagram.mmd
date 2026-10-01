@@ -40,12 +40,12 @@ classDiagram
     }
 
     Hospital "1" *-- "*" Department : contains
-    Hospital "1" o-- "*" Patient : registers
     Hospital "1" *-- "*" Appointment : manages
+    Hospital "1" o-- "*" Patient : registers
 
     Department "1" o-- "*" Doctor : employs
 
+    Prescription "*" --> "1" Patient : prescribed_for
     Appointment "*" --> "1" Doctor : assigned_to
     Appointment "*" --> "1" Patient : booked_by
     Appointment "1" *-- "0..*" Prescription : generates
-    Prescription "*" --> "1" Patient : prescribed_for
