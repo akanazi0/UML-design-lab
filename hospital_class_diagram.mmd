@@ -55,8 +55,8 @@ classDiagram
     }
     
     %% Relationships
-    Person <|.. Patient : inherits
-    Person <|.. Doctor : inherits
+    Person <|-- Patient : inherits
+    Person <|-- Doctor : inherits
     
     Hospital "1" *-- "*" Department : contains
     Hospital "1" *-- "*" Appointment : manages
