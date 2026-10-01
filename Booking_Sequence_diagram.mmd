@@ -6,7 +6,7 @@ sequenceDiagram
     participant A as Appointment
 
     rect
-        note over P, H: 1. Registration Check & Scheduling Request
+        note over P, H: Registration Check & Scheduling Request
         alt Patient is NOT registered
             P->>H: register_patient(patient)
             activate H
