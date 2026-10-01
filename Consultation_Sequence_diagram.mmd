@@ -1,0 +1,37 @@
+sequenceDiagram
+    autonumber
+    actor D as Doctor
+    actor P as Patient
+    participant A as Appointment
+    participant Rx as Prescription
+
+    rect
+        note over D, Rx: 2. Consultation, Prescription & Completion
+        D->>D: mark_as_busy()
+
+        D->>A: view_patient_history(patient)
+        activate A
+        A->>P: show_medical_history()
+        activate P
+        P-->>A: return medical_history (str)
+        deactivate P
+        A-->>D: return medical_history (str)
+        deactivate A
+
+        D->>A: issue_prescription(med_name, dosage, instructions)
+        activate A
+        A->>Rx: create(med_name, dosage, instructions)
+        activate Rx
+        Rx-->>A: return Prescription instance
+        deactivate Rx
+        A-->>D: return Prescription instance
+        deactivate A
+
+        D->>A: complete_appointment()
+        activate A
+        A->>A: update status to "Completed"
+        A-->>D: void
+        deactivate A
+
+        D->>D: mark_as_available()
+    end

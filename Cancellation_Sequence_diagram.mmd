@@ -1,0 +1,21 @@
+sequenceDiagram
+    autonumber
+    actor P as Patient
+    participant A as Appointment
+    participant D as Doctor
+
+    rect
+        note over P, D: 3. Appointment Cancellation Flow
+        P->>A: cancel_appointment()
+        activate A
+
+        A->>A: update status to "Canceled"
+
+        A->>D: mark_as_available()
+        activate D
+        D-->>A: void
+        deactivate D
+
+        A-->>P: void
+        deactivate A
+    end

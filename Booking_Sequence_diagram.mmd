@@ -1,0 +1,32 @@
+sequenceDiagram
+    autonumber
+    actor P as Patient
+    actor D as Doctor
+    participant H as Hospital
+    participant A as Appointment
+
+    rect
+        note over P, H: 1. Registration Check & Scheduling Request
+        alt Patient is NOT registered
+            P->>H: register_patient(patient)
+            activate H
+            H-->>P: void
+            deactivate H
+        end
+
+        P->>H: schedule_appointment(patient, doctor, date)
+        activate H
+
+        H->>D: is_available_at(date)
+        activate D
+        D-->>H: return true (bool)
+        deactivate D
+
+        H->>A: create(patient, doctor, date)
+        activate A
+        A-->>H: return Appointment instance
+        deactivate A
+
+        H-->>P: return Appointment instance
+        deactivate H
+    end
