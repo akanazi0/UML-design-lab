@@ -1,0 +1,51 @@
+classDiagram
+
+    class Hospital {
+        +str name
+        +add_department()
+        +register_patient()
+        +schedule_appointment()
+    }
+
+    class Department {
+        +str name
+        +add_doctor()
+    }
+
+    class Doctor {
+        +str name
+        +str specialty
+        +bool is_available
+        +mark_as_busy()
+        +mark_as_available()
+    }
+
+    class Patient {
+        +str name
+        +str national_id
+    }
+
+    class Appointment {
+        +str appointment_date
+        +str status
+        +issue_prescription()
+        +complete_appointment()
+        +cancel_appointment()
+    }
+
+    class Prescription {
+        +str medication_name
+        +str dosage
+        +str instructions
+    }
+
+    Hospital *-- "*" Department : contains
+    Hospital o-- "*" Patient : registers
+    Hospital *-- "*" Appointment : manages
+
+    Department o-- "*" Doctor : employs
+
+    Appointment --> "1" Doctor : assigned_to
+    Appointment --> "1" Patient : booked_by
+    Appointment *-- "0..1" Prescription : generates
+    Prescription --> "1" Patient : prescribed_for
