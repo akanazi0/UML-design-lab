@@ -1,12 +1,12 @@
 sequenceDiagram
     autonumber
-    actor D as Doctor
     actor P as Patient
+    actor D as Doctor
     participant A as Appointment
     participant Rx as Prescription
 
     rect
-        note over D, Rx: 2. Consultation, Prescription & Completion
+        note over P, Rx: Consultation, Prescription & Completion
         D->>D: mark_as_busy()
 
         D->>A: view_patient_history(patient)
