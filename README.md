@@ -23,7 +23,6 @@ It shows:
 - prescription issuance
 - appointment completion
 
-
 ## Files
 
 - [hospital_class_diagram.mmd](hospital_class_diagram.mmd) — the class diagram
@@ -48,7 +47,3 @@ It shows:
 3. The doctor views the patient history.
 4. The doctor issues a prescription.
 5. The appointment is completed.
-
-## How to view
-
-Open the Mermaid files in VS Code with Mermaid support to see the diagrams.
